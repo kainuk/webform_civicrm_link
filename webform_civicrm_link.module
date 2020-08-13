@@ -1,0 +1,64 @@
+<?php
+/*
+ * @author Klaas Eikelboom  <klaas.eikelboom@civicoop.org>
+ * @date 12-Aug-2020
+ * @license  AGPL-3.0
+ */
+
+function webform_civicrm_link_webform_submission_update($node, $submission) {
+  if (!empty($submission->civicrm)) {
+    db_delete('webform_civicrm_links')
+      ->condition('sid',$submission->sid)
+      ->execute();
+    foreach($submission->civicrm as $name => $entities){
+      foreach($entities as $entity){
+        db_insert('webform_civicrm_links')
+          ->fields(['sid' =>$submission->sid,'entity_table'=>$name,'entity_id'=>$entity['id']])
+          ->execute();
+      }
+    }
+  }
+}
+
+function webform_civicrm_link_webform_submission_insert($node, $submission) {
+  if (!empty($submission->civicrm)) {
+    db_delete('webform_civicrm_links')
+      ->condition('sid',$submission->sid)
+      ->execute();
+     foreach($submission->civicrm as $name => $entities){
+       foreach($entities as $entity){
+         db_insert('webform_civicrm_links')
+           ->fields(['sid' =>$submission->sid,'entity_table'=>$name,'entity_id'=>$entity['id']])
+           ->execute();
+       }
+     }
+  }
+}
+
+
+function webform_civicrm_link_menu() {
+  $items = [];
+  $items['node/%webform_menu/webform/civicrmlink'] =[
+    'title' => 'CiviCRM Links',
+    'page callback' => 'webform_civicrm_link_manage',
+    'page arguments' => array(1),
+    'access callback' => 'node_access',
+    'access arguments' => array('update', 1),
+    'file' => 'webform_civicrm_link.admin.inc',
+    'weight' => 9,
+    'type' => MENU_LOCAL_TASK,
+  ];
+  return $items;
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function webform_civicrm_link_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'webform_civicrm_link') . '/views',
+  );
+}
+
+

@@ -1,0 +1,52 @@
+<?php
+/*
+* @author Klaas Eikelboom  <klaas.eikelboom@civicoop.org>
+* @date 12-Aug-2020
+* @license  AGPL-3.0
+*/
+
+function webform_civicrm_link_schema() {
+  $schema = [];
+  $schema['webform_civicrm_links'] = [
+    'description' => 'Links a webform submission to a CiviCRM entity',
+    'fields' => [
+      'sid' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Webform Submission ID',
+      ],
+      'entity_table' => [
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'description' => 'CiviCRM Entity',
+      ],
+      'entity_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'CiviCRM Entity',
+        ]
+      ]
+  ];
+  $schema['webform_civicrm_links_config'] = [
+    'description' => 'What tables are enabled on a CiviCRM form',
+    'fields' => [
+      'nid' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Webform Submission ID',
+      ],
+      'enabled' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Is the table enabled',
+      ],
+    ]
+  ];
+  return $schema;
+}
