@@ -19,14 +19,11 @@ function webform_civicrm_link_manage($node) {
 function _webform_civicrm_link_manage_form($form, &$form_state, $node){
   $form = [];
   $nid = $node->nid;
-  $enabled = db_query('select enabled from {webform_civicrm_links_config} where nid = :nid',[
-    ':nid' => $nid
-  ])->fetchField();
   $form['enabled'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable CiviCRM Webform link'),
     '#description' => t('If enabled, all CiviCRM Submission are stored in a seperate table'),
-    '#default_value' => $enabled,
+    '#default_value' => webform_civicrm_link_helper::instance()->enabled($nid),
   );
   $form['nid'] = [
     '#type' => 'hidden',

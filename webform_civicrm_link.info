@@ -7,7 +7,12 @@ dependencies[] = webform (>=4.12)
 dependencies[] = webform_civicrm (>=4.18)
 dependencies[] = libraries
 
-files [] = views/webform_civicrm_link.views.inc
+files[] = views/webform_civicrm_link.views.inc
+files[] = views/includes/views_handler_field_webformlink_abstract.inc
+files[] = views/includes/views_handler_field_webformlink_contact.inc
+files[] = views/includes/views_handler_field_webformlink_case.inc
+files[] = views/includes/views_handler_field_webformlink_activity.inc
+files[] = includes/webform_civicrm_link_helper.inc
 
 
 

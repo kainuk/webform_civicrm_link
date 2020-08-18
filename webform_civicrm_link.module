@@ -6,35 +6,16 @@
  */
 
 function webform_civicrm_link_webform_submission_update($node, $submission) {
-  if (!empty($submission->civicrm)) {
-    db_delete('webform_civicrm_links')
-      ->condition('sid',$submission->sid)
-      ->execute();
-    foreach($submission->civicrm as $name => $entities){
-      foreach($entities as $entity){
-        db_insert('webform_civicrm_links')
-          ->fields(['sid' =>$submission->sid,'entity_table'=>$name,'entity_id'=>$entity['id']])
-          ->execute();
-      }
-    }
+  if(webform_civicrm_link_helper::instance()->enabled($node->nid)) {
+    webform_civicrm_link_helper::instance()->updateSubmission($submission);
   }
 }
 
 function webform_civicrm_link_webform_submission_insert($node, $submission) {
-  if (!empty($submission->civicrm)) {
-    db_delete('webform_civicrm_links')
-      ->condition('sid',$submission->sid)
-      ->execute();
-     foreach($submission->civicrm as $name => $entities){
-       foreach($entities as $entity){
-         db_insert('webform_civicrm_links')
-           ->fields(['sid' =>$submission->sid,'entity_table'=>$name,'entity_id'=>$entity['id']])
-           ->execute();
-       }
-     }
+  if(webform_civicrm_link_helper::instance()->enabled($node->nid)) {
+    webform_civicrm_link_helper::instance()->updateSubmission($submission);
   }
 }
-
 
 function webform_civicrm_link_menu() {
   $items = [];

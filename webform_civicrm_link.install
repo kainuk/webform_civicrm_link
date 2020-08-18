@@ -16,11 +16,18 @@ function webform_civicrm_link_schema() {
         'not null' => TRUE,
         'description' => 'Webform Submission ID',
       ],
+
       'entity_table' => [
         'type' => 'varchar',
         'length' => 64,
         'not null' => TRUE,
         'description' => 'CiviCRM Entity',
+      ],
+      'sequence' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'sequence',
       ],
       'entity_id' => [
         'type' => 'int',
